@@ -1,9 +1,6 @@
 package index
 
-import all.Api
-import all.EnvironmentImpl
-import all.EventLoopImpl
-import all.StorageApi
+import all.*
 import app.app
 import kotlinext.js.require
 import kotlinext.js.requireAll
@@ -14,10 +11,10 @@ import kotlin.browser.window
 
 fun main(args: Array<String>) {
     requireAll(require.context("src", true, js("/\\.css$/")))
-    val eventLoop = EventLoopImpl()
+    val eventLoop: EventLoop = EventLoopImpl()
     val storage: Storage = window.localStorage
     val api: Api = StorageApi(storage)
-    val environment = EnvironmentImpl(api)
+    val environment: Environment = EnvironmentImpl(api)
     render(document.getElementById("root")) {
         app(eventLoop, environment)
     }
