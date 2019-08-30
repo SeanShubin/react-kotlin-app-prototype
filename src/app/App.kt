@@ -1,12 +1,7 @@
 package app
 
-import all.Environment
-import all.EventLoop
-import all.MyEvent
-import all.dispatch
+import all.*
 import react.*
-import state.Foo
-import state.MyState
 
 interface AppState : RState {
     var myState: MyState

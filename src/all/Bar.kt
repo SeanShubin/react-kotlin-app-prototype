@@ -8,7 +8,6 @@ import react.dom.a
 import react.dom.h1
 import react.dom.input
 import react.dom.p
-import state.Bar
 
 fun RBuilder.bar(sendEvent:(MyEvent)->Unit, bar: Bar) {
     h1 {

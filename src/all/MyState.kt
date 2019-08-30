@@ -1,4 +1,4 @@
-package state
+package all
 
 interface MyState
 data class Foo(val fooString: String) : MyState
