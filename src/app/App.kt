@@ -1,27 +1,39 @@
 package app
 
+import dispatch.dispatch
+import event.*
 import react.*
-import react.dom.*
-import logo.*
-import ticker.*
+import state.Foo
+import state.MyState
 
-class App : RComponent<RProps, RState>() {
+interface AppState : RState {
+    var myState: MyState
+}
+
+interface AppProps : RProps {
+    var eventLoop: EventLoop
+    var environment: Environment
+}
+
+class App : RComponent<AppProps, AppState>() {
+    override fun AppState.init() {
+        myState = Foo("initial foo string")
+    }
+
     override fun RBuilder.render() {
-        div("App-header") {
-            logo()
-            h2 {
-                +"Welcome to React with Kotlin"
+        fun handleEvent(event: MyEvent){
+            val (newState, effects) = props.eventLoop.reactTo(state.myState, event)
+            setState {
+                myState = newState
+                effects.forEach { it.apply(::handleEvent, props.environment) }
             }
         }
-        p("App-intro") {
-            +"To get started, edit "
-            code { +"app/App.kt" }
-            +" and save to reload."
-        }
-        p("App-ticker") {
-            ticker()
-        }
+        dispatch(::handleEvent, state.myState)
     }
 }
 
-fun RBuilder.app() = child(App::class) {}
+fun RBuilder.app(eventLoop: EventLoop,
+                 environment: Environment) = child(App::class) {
+    attrs.eventLoop = eventLoop
+    attrs.environment = environment
+}

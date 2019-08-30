@@ -1,14 +1,18 @@
 package index
 
-import app.*
-import kotlinext.js.*
-import react.dom.*
-import kotlin.browser.*
+import app.app
+import event.EnvironmentImpl
+import event.EventLoopImpl
+import kotlinext.js.require
+import kotlinext.js.requireAll
+import react.dom.render
+import kotlin.browser.document
 
 fun main(args: Array<String>) {
     requireAll(require.context("src", true, js("/\\.css$/")))
-
+    val eventLoop = EventLoopImpl()
+    val environment = EnvironmentImpl()
     render(document.getElementById("root")) {
-        app()
+        app(eventLoop, environment)
     }
 }
