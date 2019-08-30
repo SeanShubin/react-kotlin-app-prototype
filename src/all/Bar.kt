@@ -1,8 +1,5 @@
 package all
 
-import event.LoadFooRequest
-import event.MyEvent
-import event.UpdateBarRequest
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement

@@ -1,10 +1,10 @@
 package index
 
-import api.Api
-import api.StorageApi
+import all.Api
+import all.EnvironmentImpl
+import all.EventLoopImpl
+import all.StorageApi
 import app.app
-import event.EnvironmentImpl
-import event.EventLoopImpl
 import kotlinext.js.require
 import kotlinext.js.requireAll
 import org.w3c.dom.Storage
