@@ -1,4 +1,4 @@
-package api
+package all
 
 import org.w3c.dom.Storage
 import kotlin.js.Promise

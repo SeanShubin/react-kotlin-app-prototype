@@ -1,6 +1,5 @@
-package event
+package all
 
-import api.Api
 import state.Bar
 import state.Debug
 import state.Foo
@@ -27,8 +26,8 @@ interface EventLoop {
     fun reactTo(state: MyState, event: MyEvent): StateAndEffects
 }
 
-data class StateAndEffects(val state: MyState, val effects: List<Effect>)
-interface Effect {
+data class StateAndEffects(val state: MyState, val effects: List<MyEffect>)
+interface MyEffect {
     fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment)
 }
 interface Environment
@@ -44,7 +43,7 @@ class EventLoopImpl:EventLoop{
             is UpdateBarRequest -> Bar(event.newValue)
             else -> Debug
         }
-        val effects = emptyList<Effect>()
+        val effects = emptyList<MyEffect>()
         console.log("newState", newState)
         console.log("effects", effects)
         return StateAndEffects(newState, effects)

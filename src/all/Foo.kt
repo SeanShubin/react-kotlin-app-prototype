@@ -1,4 +1,4 @@
-package foo
+package all
 
 import event.LoadBarRequest
 import event.MyEvent

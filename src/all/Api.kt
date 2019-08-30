@@ -1,4 +1,4 @@
-package api
+package all
 
 import kotlin.js.Promise
 

@@ -1,12 +1,9 @@
-package dispatch
+package all
 
-import bar.bar
-import event.MyEvent
-import foo.foo
+import react.RBuilder
 import state.Bar
 import state.Foo
 import state.MyState
-import react.RBuilder
 
 fun RBuilder.dispatch(sendEvent:(MyEvent) -> Unit, page: MyState){
     when(page){
