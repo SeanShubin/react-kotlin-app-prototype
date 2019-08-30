@@ -1,7 +1,9 @@
 package app
 
 import dispatch.dispatch
-import event.*
+import event.Environment
+import event.EventLoop
+import event.MyEvent
 import react.*
 import state.Foo
 import state.MyState
@@ -13,12 +15,16 @@ interface AppState : RState {
 interface AppProps : RProps {
     var eventLoop: EventLoop
     var environment: Environment
+    var test: String
 }
 
 class App : RComponent<AppProps, AppState>() {
     override fun AppState.init() {
+//        console.log("attrs.test", props.test)
+
         myState = Foo("initial foo string")
     }
+
 
     override fun RBuilder.render() {
         fun handleEvent(event: MyEvent){
@@ -36,4 +42,5 @@ fun RBuilder.app(eventLoop: EventLoop,
                  environment: Environment) = child(App::class) {
     attrs.eventLoop = eventLoop
     attrs.environment = environment
+    attrs.test = "blah"
 }

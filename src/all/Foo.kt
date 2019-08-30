@@ -1,37 +1,37 @@
-package bar
+package foo
 
-import event.BarStringChangeRequest
+import event.LoadBarRequest
 import event.MyEvent
-import event.NavFooRequest
+import event.UpdateFooRequest
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
-import state.Bar
 import react.RBuilder
 import react.dom.a
 import react.dom.h1
 import react.dom.input
 import react.dom.p
+import state.Foo
 
-fun RBuilder.bar(sendEvent:(MyEvent)->Unit, bar: Bar) {
+fun RBuilder.foo(sendEvent:(MyEvent)->Unit, foo: Foo) {
     h1 {
-        +"Bar"
+        +"Foo"
     }
     input {
         attrs {
-            value = bar.barString
+            value = foo.fooString
             onChangeFunction = { event ->
                 val target = event.target as HTMLInputElement
-                sendEvent(BarStringChangeRequest(target.value))
+                sendEvent(UpdateFooRequest(target.value))
             }
         }
     }
     p {
         a(href = "#") {
-            +"Foo"
+            +"Bar"
             attrs {
                 onClickFunction = {
-                    sendEvent(NavFooRequest)
+                    sendEvent(LoadBarRequest)
                 }
             }
         }

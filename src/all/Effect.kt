@@ -1,0 +1,3 @@
+package all
+
+interface Effect

@@ -1,20 +1,27 @@
 package event
 
-import state.MyState
-import state.Foo
+import api.Api
 import state.Bar
 import state.Debug
+import state.Foo
+import state.MyState
 
 interface MyEvent
 
-object NavFooRequest : MyEvent {
+object LoadFooRequest : MyEvent {
     override fun toString(): String = "NavFooRequest"
 }
-object NavBarRequest : MyEvent{
+
+object LoadBarRequest : MyEvent {
     override fun toString(): String = "NavBarRequest"
 }
-data class FooStringChangeRequest(val newValue: String) : MyEvent
-data class BarStringChangeRequest(val newValue: String) : MyEvent
+
+data class UpdateFooRequest(val newValue: String) : MyEvent
+data class UpdateBarRequest(val newValue: String) : MyEvent
+data class StoreFooRequest(val newValue: String) : MyEvent
+data class StoreBarRequest(val newValue: String) : MyEvent
+data class LoadFooResponse(val newValue: String) : MyEvent
+data class LoadBarResponse(val newValue: String) : MyEvent
 
 interface EventLoop {
     fun reactTo(state: MyState, event: MyEvent): StateAndEffects
@@ -31,10 +38,10 @@ class EventLoopImpl:EventLoop{
         console.log("oldState", state)
         console.log("event", event)
         val newState = when(event){
-            is NavFooRequest -> Foo("nav foo string")
-            is NavBarRequest -> Bar("nav bar string")
-            is FooStringChangeRequest -> Foo(event.newValue)
-            is BarStringChangeRequest -> Bar(event.newValue)
+            is LoadFooRequest -> Foo("nav foo string")
+            is LoadBarRequest -> Bar("nav bar string")
+            is UpdateFooRequest -> Foo(event.newValue)
+            is UpdateBarRequest -> Bar(event.newValue)
             else -> Debug
         }
         val effects = emptyList<Effect>()
@@ -45,6 +52,6 @@ class EventLoopImpl:EventLoop{
 
 }
 
-class EnvironmentImpl:Environment {
+class EnvironmentImpl(private val api: Api) : Environment {
 
 }
