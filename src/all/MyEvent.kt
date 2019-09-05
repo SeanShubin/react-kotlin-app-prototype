@@ -21,31 +21,32 @@ interface EventLoop {
     fun reactTo(state: MyState, event: MyEvent): StateAndEffects
 }
 
-data class StateAndEffects(val state: MyState, val effects: List<MyEffect>)
-interface MyEffect {
-    fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment)
+data class StateAndEffects(val state: MyState, val effects: List<MyEffect>){
+    fun addEffect(effect:MyEffect):StateAndEffects = copy(effects = effects + effect)
 }
-interface Environment
+
+interface Environment {
+    val api:Api
+}
+
 
 class EventLoopImpl:EventLoop{
     override fun reactTo(state: MyState, event: MyEvent): StateAndEffects {
         console.log("oldState", state)
         console.log("event", event)
-        val newState = when(event){
-            is LoadFooRequest -> Foo("nav foo string")
-            is LoadBarRequest -> Bar("nav bar string")
-            is UpdateFooRequest -> Foo(event.newValue)
-            is UpdateBarRequest -> Bar(event.newValue)
-            else -> Debug
+        val default = StateAndEffects(state, emptyList())
+        val result:StateAndEffects = when(event){
+            is LoadFooRequest -> default.addEffect(LoadFooEffect)
+            is LoadBarRequest -> default.addEffect(LoadBarEffect)
+            is UpdateFooRequest -> default.copy(state = Foo(event.newValue))
+            is UpdateBarRequest -> default.copy(state = Bar(event.newValue))
+            else -> default.copy(state = Debug)
         }
-        val effects = emptyList<MyEffect>()
-        console.log("newState", newState)
-        console.log("effects", effects)
-        return StateAndEffects(newState, effects)
+        console.log("newState", result.state)
+        console.log("effects", result.effects)
+        return result
     }
 
 }
 
-class EnvironmentImpl(private val api: Api) : Environment {
-
-}
+class EnvironmentImpl(override val api: Api) : Environment
