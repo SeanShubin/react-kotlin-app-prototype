@@ -10,7 +10,6 @@ interface AppState : RState {
 interface AppProps : RProps {
     var eventLoop: EventLoop
     var environment: Environment
-    var test: String
 }
 
 class App : RComponent<AppProps, AppState>() {
@@ -35,5 +34,4 @@ fun RBuilder.app(eventLoop: EventLoop,
                  environment: Environment) = child(App::class) {
     attrs.eventLoop = eventLoop
     attrs.environment = environment
-    attrs.test = "blah"
 }
