@@ -3,6 +3,7 @@ package all
 import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
+import kotlinx.html.js.onFocusFunction
 import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.dom.a
@@ -24,6 +25,10 @@ fun RBuilder.foo(sendEvent:(MyEvent)->Unit, foo: Foo) {
             onBlurFunction = { event ->
                 val target = event.target as HTMLInputElement
                 sendEvent(StoreFooRequest(target.value))
+            }
+            onFocusFunction = { event ->
+                val target = event.target as HTMLInputElement
+                target.setSelectionRange(0, target.value.length)
             }
         }
     }
