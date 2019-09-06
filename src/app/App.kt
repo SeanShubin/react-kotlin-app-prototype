@@ -14,20 +14,20 @@ interface AppProps : RProps {
 }
 
 class App : RComponent<AppProps, AppState>() {
-    override fun AppState.init() {
-        myState = Foo("initial foo string")
+    override fun componentDidMount() {
+        handleEvent(LoadFooRequest)
     }
 
-
     override fun RBuilder.render() {
-        fun handleEvent(event: MyEvent){
-            val (newState, effects) = props.eventLoop.reactTo(state.myState, event)
-            setState {
-                myState = newState
-                effects.forEach { it.apply(::handleEvent, props.environment) }
-            }
-        }
         dispatch(::handleEvent, state.myState)
+    }
+
+    private fun handleEvent(event: MyEvent) {
+        val (newState, effects) = props.eventLoop.reactTo(state.myState, event)
+        setState {
+            myState = newState
+            effects.forEach { it.apply(::handleEvent, props.environment) }
+        }
     }
 }
 
