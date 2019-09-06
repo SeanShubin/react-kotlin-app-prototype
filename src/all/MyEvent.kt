@@ -21,21 +21,21 @@ interface EventLoop {
     fun reactTo(state: MyState, event: MyEvent): StateAndEffects
 }
 
-data class StateAndEffects(val state: MyState, val effects: List<MyEffect>){
-    fun addEffect(effect:MyEffect):StateAndEffects = copy(effects = effects + effect)
+data class StateAndEffects(val state: MyState, val effects: List<MyEffect>) {
+    fun addEffect(effect: MyEffect): StateAndEffects = copy(effects = effects + effect)
 }
 
 interface Environment {
-    val api:Api
+    val api: Api
 }
 
 
-class EventLoopImpl:EventLoop{
+class EventLoopImpl : EventLoop {
     override fun reactTo(state: MyState, event: MyEvent): StateAndEffects {
         console.log("oldState", state)
         console.log("event", event)
         val default = StateAndEffects(state, emptyList())
-        val result:StateAndEffects = when(event){
+        val result: StateAndEffects = when (event) {
             is StoreFooRequest -> default.addEffect(StoreFooEffect(event.newValue))
             is StoreBarRequest -> default.addEffect(StoreBarEffect(event.newValue))
             is LoadFooRequest -> default.addEffect(LoadFooEffect)

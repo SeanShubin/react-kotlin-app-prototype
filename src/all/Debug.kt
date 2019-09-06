@@ -1,17 +1,18 @@
 package all
 
-import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
-import org.w3c.dom.HTMLInputElement
 import react.RBuilder
-import react.dom.*
+import react.dom.a
+import react.dom.h1
+import react.dom.p
+import react.dom.pre
 
-fun RBuilder.debug(sendEvent:(MyEvent)->Unit, exception:Exception) {
+fun RBuilder.debug(sendEvent: (MyEvent) -> Unit, exception: Exception) {
     h1 {
         +"Exception"
     }
     pre {
-       +JSON.stringify(exception)
+        +JSON.stringify(exception)
     }
     p {
         a(href = "#") {

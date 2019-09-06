@@ -11,7 +11,7 @@ import react.dom.h1
 import react.dom.input
 import react.dom.p
 
-fun RBuilder.bar(sendEvent:(MyEvent)->Unit, bar: Bar) {
+fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: Bar) {
     h1 {
         +"Bar"
     }

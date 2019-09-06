@@ -11,7 +11,7 @@ import react.dom.h1
 import react.dom.input
 import react.dom.p
 
-fun RBuilder.foo(sendEvent:(MyEvent)->Unit, foo: Foo) {
+fun RBuilder.foo(sendEvent: (MyEvent) -> Unit, foo: Foo) {
     h1 {
         +"Foo"
     }

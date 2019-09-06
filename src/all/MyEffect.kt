@@ -4,7 +4,7 @@ interface MyEffect {
     fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment)
 }
 
-object LoadFooEffect:MyEffect{
+object LoadFooEffect : MyEffect {
     override fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment) {
         environment.api.getFoo().then { foo ->
             handleEvent(LoadFooResponse(foo))
@@ -14,7 +14,7 @@ object LoadFooEffect:MyEffect{
     override fun toString(): String = "LoadFooEffect"
 }
 
-object LoadBarEffect:MyEffect{
+object LoadBarEffect : MyEffect {
     override fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment) {
         environment.api.getBar().then { bar ->
             handleEvent(LoadBarResponse(bar))
