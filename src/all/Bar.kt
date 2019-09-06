@@ -1,5 +1,6 @@
 package all
 
+import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
@@ -19,6 +20,10 @@ fun RBuilder.bar(sendEvent:(MyEvent)->Unit, bar: Bar) {
             onChangeFunction = { event ->
                 val target = event.target as HTMLInputElement
                 sendEvent(UpdateBarRequest(target.value))
+            }
+            onBlurFunction = { event ->
+                val target = event.target as HTMLInputElement
+                sendEvent(StoreBarRequest(target.value))
             }
         }
     }

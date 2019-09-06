@@ -23,3 +23,23 @@ object LoadBarEffect:MyEffect{
 
     override fun toString(): String = "LoadBarEffect"
 }
+
+data class StoreFooEffect(val newValue: String) : MyEffect {
+    override fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment) {
+        environment.api.setFoo(newValue).then {
+            handleEvent(LoadFooResponse(newValue))
+        }
+    }
+
+    override fun toString(): String = "LoadFooEffect"
+}
+
+data class StoreBarEffect(val newValue: String) : MyEffect {
+    override fun apply(handleEvent: (MyEvent) -> Unit, environment: Environment) {
+        environment.api.setBar(newValue).then {
+            handleEvent(LoadBarResponse(newValue))
+        }
+    }
+
+    override fun toString(): String = "LoadBarEffect"
+}

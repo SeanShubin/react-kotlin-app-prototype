@@ -36,6 +36,8 @@ class EventLoopImpl:EventLoop{
         console.log("event", event)
         val default = StateAndEffects(state, emptyList())
         val result:StateAndEffects = when(event){
+            is StoreFooRequest -> default.addEffect(StoreFooEffect(event.newValue))
+            is StoreBarRequest -> default.addEffect(StoreBarEffect(event.newValue))
             is LoadFooRequest -> default.addEffect(LoadFooEffect)
             is LoadBarRequest -> default.addEffect(LoadBarEffect)
             is UpdateFooRequest -> default.copy(state = Foo(event.newValue))

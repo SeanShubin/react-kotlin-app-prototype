@@ -1,5 +1,6 @@
 package all
 
+import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
@@ -19,6 +20,10 @@ fun RBuilder.foo(sendEvent:(MyEvent)->Unit, foo: Foo) {
             onChangeFunction = { event ->
                 val target = event.target as HTMLInputElement
                 sendEvent(UpdateFooRequest(target.value))
+            }
+            onBlurFunction = { event ->
+                val target = event.target as HTMLInputElement
+                sendEvent(StoreFooRequest(target.value))
             }
         }
     }
