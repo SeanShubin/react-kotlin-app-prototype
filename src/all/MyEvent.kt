@@ -40,7 +40,9 @@ class EventLoopImpl:EventLoop{
             is LoadBarRequest -> default.addEffect(LoadBarEffect)
             is UpdateFooRequest -> default.copy(state = Foo(event.newValue))
             is UpdateBarRequest -> default.copy(state = Bar(event.newValue))
-            else -> default.copy(state = Debug)
+            is LoadFooResponse -> default.copy(state = Foo(event.newValue))
+            is LoadBarResponse -> default.copy(state = Bar(event.newValue))
+            else -> default.copy(state = UnsupportedEvent(event.toString()))
         }
         console.log("newState", result.state)
         console.log("effects", result.effects)

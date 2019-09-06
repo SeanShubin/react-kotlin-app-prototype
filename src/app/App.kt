@@ -15,8 +15,6 @@ interface AppProps : RProps {
 
 class App : RComponent<AppProps, AppState>() {
     override fun AppState.init() {
-//        console.log("attrs.test", props.test)
-
         myState = Foo("initial foo string")
     }
 
