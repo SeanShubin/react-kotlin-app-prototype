@@ -6,7 +6,7 @@ import react.dom.a
 import react.dom.h1
 import react.dom.p
 
-fun RBuilder.unsupportedEvent(sendEvent: (MyEvent) -> Unit, unsupportedEvent: UnsupportedEvent) {
+fun RBuilder.unsupportedEvent(sendEvent: (MyEvent) -> Unit, unsupportedEvent: UnsupportedEventState) {
     h1 {
         +"Unsupported Event"
     }
