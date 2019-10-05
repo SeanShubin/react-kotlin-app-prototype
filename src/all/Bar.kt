@@ -23,6 +23,7 @@ fun RBuilder.bar(sendEvent: (MyEvent) -> Unit,
         attrs {
             ref = focusMe
             value = bar.barString
+            autoFocus = true
             onChangeFunction = { event ->
                 val target = event.target as HTMLInputElement
                 sendEvent(UpdateBarRequest(target.value))
