@@ -1,6 +1,7 @@
 package app
 
 import all.*
+import org.w3c.dom.HTMLElement
 import react.*
 
 interface AppState : RState {
@@ -18,7 +19,8 @@ class App : RComponent<AppProps, AppState>() {
     }
 
     override fun RBuilder.render() {
-        dispatch(::handleEvent, state.myState)
+        val focusMe: RReadableRef<HTMLElement> = createRef()
+        dispatch(::handleEvent, focusMe, state.myState)
     }
 
     private fun handleEvent(event: MyEvent) {

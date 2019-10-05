@@ -12,12 +12,12 @@ import react.dom.*
 interface FooProps : RProps {
     var sendEvent: (MyEvent) -> Unit
     var fooState: FooState
+    var focusMe: RReadableRef<HTMLElement>
 }
 
 class Foo : RComponent<FooProps, RState>() {
-    private val focusMe: RReadableRef<HTMLElement> = createRef()
     private fun setFocusToDefault() {
-        focusMe.current?.focus()
+        props.focusMe.current?.focus()
     }
 
     override fun componentDidMount() {
@@ -30,7 +30,7 @@ class Foo : RComponent<FooProps, RState>() {
         }
         input {
             attrs {
-                ref = focusMe
+                ref = props.focusMe
                 value = props.fooState.fooString
                 onChangeFunction = { event ->
                     val target = event.target as HTMLInputElement
@@ -70,7 +70,9 @@ class Foo : RComponent<FooProps, RState>() {
 }
 
 fun RBuilder.foo(sendEvent: (MyEvent) -> Unit,
+                 focusMe: RReadableRef<HTMLElement>,
                  fooState: FooState) = child(Foo::class) {
     attrs.sendEvent = sendEvent
     attrs.fooState = fooState
+    attrs.focusMe = focusMe
 }

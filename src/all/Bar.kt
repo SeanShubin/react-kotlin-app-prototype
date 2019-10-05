@@ -8,11 +8,11 @@ import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.RReadableRef
-import react.createRef
 import react.dom.*
 
-fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: BarState) {
-    val focusMe: RReadableRef<HTMLElement> = createRef()
+fun RBuilder.bar(sendEvent: (MyEvent) -> Unit,
+                 focusMe: RReadableRef<HTMLElement>,
+                 bar: BarState) {
     fun setFocusToDefault() {
         focusMe.current?.focus()
     }
