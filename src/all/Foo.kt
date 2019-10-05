@@ -4,6 +4,7 @@ import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onFocusFunction
+import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import react.*
 import react.dom.a
@@ -17,7 +18,7 @@ interface FooProps : RProps {
 }
 
 class Foo : RComponent<FooProps, RState>() {
-    private val focusMe: RReadableRef<HTMLInputElement> = createRef()
+    private val focusMe: RReadableRef<HTMLElement> = createRef()
 
     override fun componentDidMount() {
         focusMe.current?.focus()
