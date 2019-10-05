@@ -4,17 +4,18 @@ import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import kotlinx.html.js.onFocusFunction
+import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import react.RBuilder
 import react.RReadableRef
 import react.createRef
-import react.dom.a
-import react.dom.h1
-import react.dom.input
-import react.dom.p
+import react.dom.*
 
 fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: BarState) {
-    val focusMe: RReadableRef<HTMLInputElement> = createRef()
+    val focusMe: RReadableRef<HTMLElement> = createRef()
+    fun setFocusToDefault() {
+        focusMe.current?.focus()
+    }
     h1 {
         +"Bar"
     }
@@ -33,6 +34,16 @@ fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: BarState) {
             onFocusFunction = { event ->
                 val target = event.target as HTMLInputElement
                 target.setSelectionRange(0, target.value.length)
+            }
+        }
+    }
+    p {
+        button {
+            +"set focus"
+            attrs {
+                onClickFunction = { event ->
+                    setFocusToDefault()
+                }
             }
         }
     }

@@ -7,10 +7,7 @@ import kotlinx.html.js.onFocusFunction
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLInputElement
 import react.*
-import react.dom.a
-import react.dom.h1
-import react.dom.input
-import react.dom.p
+import react.dom.*
 
 interface FooProps : RProps {
     var sendEvent: (MyEvent) -> Unit
@@ -19,9 +16,12 @@ interface FooProps : RProps {
 
 class Foo : RComponent<FooProps, RState>() {
     private val focusMe: RReadableRef<HTMLElement> = createRef()
+    private fun setFocusToDefault() {
+        focusMe.current?.focus()
+    }
 
     override fun componentDidMount() {
-        focusMe.current?.focus()
+        setFocusToDefault()
     }
 
     override fun RBuilder.render() {
@@ -43,6 +43,16 @@ class Foo : RComponent<FooProps, RState>() {
                 onFocusFunction = { event ->
                     val target = event.target as HTMLInputElement
                     target.setSelectionRange(0, target.value.length)
+                }
+            }
+        }
+        p {
+            button {
+                +"set focus"
+                attrs {
+                    onClickFunction = { event ->
+                        setFocusToDefault()
+                    }
                 }
             }
         }
