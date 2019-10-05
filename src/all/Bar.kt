@@ -17,7 +17,7 @@ fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: BarState) {
         focusMe.current?.focus()
     }
     h1 {
-        +"Bar"
+        +"Function Style"
     }
     input {
         attrs {
@@ -49,7 +49,7 @@ fun RBuilder.bar(sendEvent: (MyEvent) -> Unit, bar: BarState) {
     }
     p {
         a(href = "#") {
-            +"Foo"
+            +"Class Style"
             attrs {
                 onClickFunction = {
                     sendEvent(LoadFooRequest)

@@ -26,7 +26,7 @@ class Foo : RComponent<FooProps, RState>() {
 
     override fun RBuilder.render() {
         h1 {
-            +"Foo"
+            +"Class Style"
         }
         input {
             attrs {
@@ -58,7 +58,7 @@ class Foo : RComponent<FooProps, RState>() {
         }
         p {
             a(href = "#") {
-                +"Bar"
+                +"Function Style"
                 attrs {
                     onClickFunction = {
                         props.sendEvent(LoadBarRequest)
